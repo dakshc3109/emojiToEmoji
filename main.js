@@ -35,3 +35,41 @@ function speak(){
     var utterThis = new SpeechSynthesisUtterance(speak_data_1+speak_data_2);
     synth.speak(utterThis);
 }
+
+function check(){
+    var img = document.getElementById("captured_img");
+    classifier.classify(img, gotResult);
+};
+
+function gotResult(error, result){
+    if(error){
+        console.error();
+    }
+    else{
+        console.log(result);
+        document.getElementById("result_emotion_name").innerHTML = result[0].label;
+        document.getElementById("result_emotion_name2").innerHTML = result[1].label;
+        prediction1 = result[0].label;
+        prediction2 = result[1].label;
+        speak();
+        if(result[0].label == "Angry"){
+            document.getElementById("update_emoji").innerHTML = "&#128545";
+        }
+        if(result[0].label == "Sad"){
+            document.getElementById("update_emoji").innerHTML = "&#128532";
+        }
+        if(result[0].label == "Happy"){
+            document.getElementById("update_emoji").innerHTML = "&#128512";
+        }
+
+        if(result[1].label == "Angry"){
+            document.getElementById("update_emoji2").innerHTML = "&#128545";
+        }
+        if(result[1].label == "Sad"){
+            document.getElementById("update_emoji2").innerHTML = "&#128532";
+        }
+        if(result[1].label == "Happy"){
+            document.getElementById("update_emoji2").innerHTML = "&#128512";
+        };
+    };
+};
